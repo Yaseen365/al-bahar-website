@@ -1,23 +1,29 @@
 "use client";
 export const dynamic = "force-dynamic";
 
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react"
 
 export default function JAlBaharSample() {
   const [scrolled, setScrolled] = useState(false);
 const [isSubmitting, setIsSubmitting] = useState(false);
-  const searchParams = useSearchParams();
-  const formSuccess = searchParams.get("success");
+const [formSuccess, setFormSuccess] = useState(false);
 
   useEffect(() => {
-    if (formSuccess === "true") {
+  if (typeof window !== "undefined") {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("success") === "true") {
+      setFormSuccess(true);
+
       const timer = setTimeout(() => {
         window.history.replaceState({}, document.title, "/");
+        setFormSuccess(false);
       }, 4000);
+
       return () => clearTimeout(timer);
     }
-  }, [formSuccess]);
+  }
+}, []);
 
   useEffect(() => {
     let ticking = false;
@@ -147,7 +153,7 @@ const [isSubmitting, setIsSubmitting] = useState(false);
   {/* Hero Content */}
   <div className="relative max-w-7xl mx-auto px-4 md:px-6 pt-12 pb-24 md:pt-10 md:pb-28 grid lg:grid-cols-2 gap-12 items-center">
 
-{formSuccess === "true" && (
+{formSuccess && (
   <div className="md:col-span-2 mb-6 flex justify-center">
     <div className="bg-green-600/90 text-white text-center py-3 px-6 rounded-2xl font- inline-block">
       Thank you, your request has been submitted successfully.
