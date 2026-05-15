@@ -518,6 +518,7 @@ onSubmit={() => setIsSubmitting(true)}
 >
     
   <input type="hidden" name="access_key" value="4471f2b4-8bd4-4408-bc04-52ba7df29f35" />
+<input type="hidden" name="redirect" value="https://jalbahar.com/?success=true" />
   <input
     type="text"
     name="name"
