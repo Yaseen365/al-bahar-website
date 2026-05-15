@@ -511,12 +511,13 @@ const [formSuccess, setFormSuccess] = useState(false);
           </div>
           
           <form
-  action="https://al-bahar-backend.onrender.com/submit-form"
-  method="POST"
-  onSubmit={() => setIsSubmitting(true)}
+  action="https://api.web3forms.com/submit"
+method="POST"
+onSubmit={() => setIsSubmitting(true)}
   className="bg-white/30 rounded-2xl p-5 md:rounded-3xl md:p-8 backdrop-blur"
 >
     
+  <input type="hidden" name="access_key" value="4471f2b4-8bd4-4408-bc04-52ba7df29f35" />
   <input
     type="text"
     name="name"
