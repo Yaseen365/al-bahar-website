@@ -61,9 +61,14 @@ Interest: {interest}
     msg["From"] = sender_email
     msg["To"] = receiver_email
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-        server.login(sender_email, sender_password)
-        server.sendmail(sender_email, receiver_email, msg.as_string())
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.ehlo()
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, receiver_email, msg.as_string())
+    except Exception as e:
+        print(f"Email sending failed: {e}")
 
     return RedirectResponse(
         url="https://jalbahar.com/?success=true",
