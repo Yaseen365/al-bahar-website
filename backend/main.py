@@ -66,6 +66,6 @@ Interest: {interest}
         server.sendmail(sender_email, receiver_email, msg.as_string())
 
     return RedirectResponse(
-    url="https://al-bahar-website.vercel.app/?success=true",
-    status_code=303
+        url="https://jalbahar.com/?success=true",
+        status_code=303
     )
