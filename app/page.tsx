@@ -510,10 +510,9 @@ const [formSuccess, setFormSuccess] = useState(false);
             </p>
           </div>
           
-          <form
+<form
   action="https://al-bahar-backend.onrender.com/submit-form"
   method="POST"
-  onSubmit={() => setIsSubmitting(true)}
   className="bg-white/30 rounded-2xl p-5 md:rounded-3xl md:p-8 backdrop-blur"
 >
     
