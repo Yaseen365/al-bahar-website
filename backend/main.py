@@ -8,6 +8,19 @@ import os
 load_dotenv()
 
 app = FastAPI()
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://jalbahar.com",
+        "https://www.jalbahar.com",
+        "http://localhost:3000"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
@@ -53,6 +66,6 @@ Interest: {interest}
         server.sendmail(sender_email, receiver_email, msg.as_string())
 
     return RedirectResponse(
-        url="http://localhost:3000/?success=true",
+        url="https://jalbahar.com/?success=true",
         status_code=303
     )
