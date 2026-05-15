@@ -511,7 +511,7 @@ const [formSuccess, setFormSuccess] = useState(false);
           </div>
           
           <form
-  action="http://127.0.0.1:8000/submit-form"
+  action="https://al-bahar-backend.onrender.com/submit-form"
   method="POST"
   onSubmit={() => setIsSubmitting(true)}
   className="bg-white/30 rounded-2xl p-5 md:rounded-3xl md:p-8 backdrop-blur"
