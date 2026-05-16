@@ -13,9 +13,44 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jawhart Al Bahar Trading & Contracting Co",
+  title: "Jawhart Al Bahar Trading & Contracting Co | Kuwait",
   description:
-    "Kuwait-based enterprise delivering contracting, infrastructure, industrial services, and strategic business growth.",
+    "Jawhart Al Bahar Trading & Contracting Co is a Kuwait-based enterprise delivering contracting, infrastructure, HVAC, facility development, industrial services, and strategic business growth.",
+  
+  icons: {
+  icon: "/favicon.ico",
+  shortcut: "/favicon.ico",
+  apple: "/favicon.ico",
+  },
+
+    keywords: [
+    "Jawhart Al Bahar",
+    "J Al Bahar",
+    "Waste management Kuwait",
+    "Industrial waste solutions Kuwait",
+    "Sustainable waste processing Kuwait",
+    "Kuwait contracting company",
+    "Trading company Kuwait",
+    "HVAC Kuwait",
+    "Facility development Kuwait",
+    "Industrial services Kuwait",
+  ],
+  authors: [{ name: "Jawhart Al Bahar Trading & Contracting Co" }],
+  creator: "Jawhart Al Bahar Trading & Contracting Co",
+  publisher: "Jawhart Al Bahar Trading & Contracting Co",
+  metadataBase: new URL("https://jalbahar.com"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Jawhart Al Bahar Trading & Contracting Co | Kuwait",
+    description:
+      "Kuwait-based enterprise delivering contracting, infrastructure, HVAC, facility development, and industrial excellence.",
+    url: "https://jalbahar.com",
+    siteName: "Jawhart Al Bahar Trading & Contracting Co",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export const viewport = {
