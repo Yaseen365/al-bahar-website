@@ -50,8 +50,24 @@ export const metadata: Metadata = {
     siteName: "Jawhart Al Bahar Trading & Contracting Co",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Jawhart Al Bahar Trading & Contracting Co",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Jawhart Al Bahar Trading & Contracting Co | Kuwait",
+    description: "Kuwait-based enterprise delivering contracting, infrastructure, HVAC, facility development, and industrial excellence.",
+    images: ["/og-image.png"],
   },
 };
+
+  
 
 export const viewport = {
   width: "device-width",
