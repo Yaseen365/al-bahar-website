@@ -604,7 +604,7 @@ onSubmit={() => setIsSubmitting(true)}
 <p>
   Phone:{" "}
   <a
-    href="tel:+96566683921"
+    href="tel:+965 9601 9420"
     className="hover:text-white hover:underline transition"
   >
     +965 5668 4536
