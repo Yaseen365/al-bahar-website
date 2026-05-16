@@ -565,7 +565,7 @@ onSubmit={() => setIsSubmitting(true)}
 </button>
 
   <a
-  href="https://wa.me/9334114948?text=Hello%20I%20am%20interested%20in%20Jawhart%20Al%20Bahar%20services"
+  href="https://wa.me/+919334114948?text=Hello%20I%20am%20interested%20in%20Jawhart%20Al%20Bahar%20services"
   target="_blank"
   rel="noopener noreferrer"
   className="w-full mt-3 bg-[#2ab318] text-white py-3 rounded-2xl font-semibold hover:bg-white hover:text-[#2ab318] transition cursor-pointer flex items-center justify-center gap-3"
