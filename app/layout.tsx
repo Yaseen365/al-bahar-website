@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   icon: "/favicon.ico",
   shortcut: "/favicon.ico",
   apple: "/favicon.ico",
-  },
+},
 
     keywords: [
     "Jawhart Al Bahar",
