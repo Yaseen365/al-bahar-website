@@ -110,7 +110,7 @@ const [formSuccess, setFormSuccess] = useState(false);
             <a href="#contact" className="font-medium tracking-wide hover:text-amber-400 hover:underline underline-offset-8 transition duration-300">Contact</a>
           </nav>
           <a
-  href="mailto:shahhussain@jalbahartrade.com"
+  href="mailto:info@jalbahar.com"
   className={`hidden xl:inline-block bg-amber-500 text-slate-950 px-2 py-1 text-xs rounded-lg md:px-4 md:py-2 md:text-base md:rounded-2xl font-semibold hover:scale-105 transition-all duration-700 inline-block overflow-hidden ${
     scrolled
       ? "md:opacity-0 md:translate-y-[-30px] md:max-w-0 md:px-0 md:py-0 md:pointer-events-none opacity-100 translate-y-0 max-w-xs"
@@ -180,7 +180,7 @@ const [formSuccess, setFormSuccess] = useState(false);
         </button>
 
         <a
-          href="mailto:shahhussain@jalbahartrade.com?subject=Company%20Profile%20Request"
+          href="mailto:info@jalbahar.com?subject=Company%20Profile%20Request"
           className="border border-slate-600 px-5 py-3 rounded-xl text-base md:text-lg w-full sm:w-auto text-center hover:border-white hover:text-white transition inline-block"
         >
           Company Profile
@@ -594,10 +594,10 @@ onSubmit={() => setIsSubmitting(true)}
             <p>
   Email:{" "}
   <a
-    href="mailto:shahhussain@jalbahartrade.com"
+    href="mailto:info@jalbahar.com"
     className="hover:text-white hover:underline transition"
   >
-    shahhussain@jalbahartrade.com
+    info@jalbahar.com
   </a>
 </p>
 
