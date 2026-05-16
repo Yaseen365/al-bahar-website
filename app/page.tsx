@@ -607,7 +607,7 @@ onSubmit={() => setIsSubmitting(true)}
     href="tel:+965 9601 9420"
     className="hover:text-white hover:underline transition"
   >
-    +965 5668 4536
+    +965 9601 9420
   </a>
 </p>
           </div>
