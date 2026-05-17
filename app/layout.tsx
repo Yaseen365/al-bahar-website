@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Jawhart Al Bahar Trading & Contracting Co" }],
   creator: "Jawhart Al Bahar Trading & Contracting Co",
   publisher: "Jawhart Al Bahar Trading & Contracting Co",
-  metadataBase: new URL("https://www.jalbahar.com"),
+  metadataBase: new URL("https://jalbahar.com"),
   alternates: {
     canonical: "/",
   },
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     title: "Jawhart Al Bahar Trading & Contracting Co | Kuwait",
     description:
       "Kuwait-based enterprise delivering contracting, infrastructure, HVAC, facility development, and industrial excellence.",
-    url: "https://www.jalbahar.com",
+    url: "https://jalbahar.com",
     siteName: "Jawhart Al Bahar Trading & Contracting Co",
     locale: "en_US",
     type: "website",
