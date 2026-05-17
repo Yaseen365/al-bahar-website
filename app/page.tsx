@@ -80,7 +80,7 @@ const [formSuccess, setFormSuccess] = useState(false);
   <img
   src="/logo.png"
   alt="Jawhart Al Bahar Logo"
-  className="w-12 sm:w-14 md:w-35 h-auto object-contain"
+  className="w-12 sm:w-14 md:w-25 h-auto object-contain"
 />
 
   <div>
