@@ -110,7 +110,7 @@ const [formSuccess, setFormSuccess] = useState(false);
             <a href="#contact" className="font-medium tracking-wide hover:text-amber-400 hover:underline underline-offset-8 transition duration-300">Contact</a>
           </nav>
           <a
-  href="mailto:wackerbhai@gmail.com"
+  href="mailto:autotest@gmail.com"
   className={`hidden xl:inline-block bg-amber-500 text-slate-950 px-2 py-1 text-xs rounded-lg md:px-4 md:py-2 md:text-base md:rounded-2xl font-semibold hover:scale-105 transition-all duration-700 inline-block overflow-hidden ${
     scrolled
       ? "md:opacity-0 md:translate-y-[-30px] md:max-w-0 md:px-0 md:py-0 md:pointer-events-none opacity-100 translate-y-0 max-w-xs"
@@ -180,7 +180,7 @@ const [formSuccess, setFormSuccess] = useState(false);
         </button>
 
         <a
-          href="mailto:wackerbhai@gmial.com?subject=Company%20Profile%20Request"
+          href="mailto:autotest@gmial.com?subject=Company%20Profile%20Request"
           className="border border-slate-600 px-5 py-3 rounded-xl text-base md:text-lg w-full sm:w-auto text-center hover:border-white hover:text-white transition inline-block"
         >
           Company Profile
@@ -565,7 +565,7 @@ onSubmit={() => setIsSubmitting(true)}
 </button>
 
   <a
-  href="https://wa.me/+919334114948?text=Hello%20I%20am%20interested%20in%20J%20Al%20Bahar%20services"
+  href="https://wa.me/+910000000000?text=Hello%20I%20am%20interested%20in%20J%20Al%20Bahar%20services"
   target="_blank"
   rel="noopener noreferrer"
   className="w-full mt-3 bg-[#2ab318] text-white py-3 rounded-2xl font-semibold hover:bg-white hover:text-[#2ab318] transition cursor-pointer flex items-center justify-center gap-3"
@@ -594,20 +594,20 @@ onSubmit={() => setIsSubmitting(true)}
             <p>
   Email:{" "}
   <a
-    href="mailto:wackerbhai@gmail.com"
+    href="mailto:autotest@gmail.com"
     className="hover:text-white hover:underline transition"
   >
-    wackerbhai123@gmail.com
+    autotest123@gmail.com
   </a>
 </p>
 
 <p>
   Phone:{" "}
   <a
-    href="tel:+91 93341 14948"
+    href="tel:+91 0000000000"
     className="hover:text-white hover:underline transition"
   >
-    +91 93341 14948
+    +91 0000000000
   </a>
 </p>
           </div>
