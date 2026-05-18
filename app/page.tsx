@@ -79,7 +79,7 @@ const [formSuccess, setFormSuccess] = useState(false);
 >
   <img
   src="/logo.png"
-  alt="Jawhart Al Bahar Logo"
+  alt="J Al Bahar Logo"
   className="w-12 sm:w-14 md:w-25 h-auto object-contain"
 />
 
@@ -270,7 +270,7 @@ const [formSuccess, setFormSuccess] = useState(false);
       </h3>
 
       <p className="text-slate-300 text-lg leading-relaxed mb-6">
-        Jawhart Al Bahar integrates operational execution, technical depth, and business diversification to create resilient opportunities across infrastructure, industrial services, and sustainable development.
+        J Al Bahar integrates operational execution, technical depth, and business diversification to create resilient opportunities across infrastructure, industrial services, and sustainable development.
       </p>
 
       <p className="text-slate-400 leading-relaxed">
@@ -308,7 +308,7 @@ const [formSuccess, setFormSuccess] = useState(false);
               Delivering Kuwait’s Future Through Excellence
             </h3>
             <p className="text-slate-300 text-lg leading-relaxed">
-              Jawhart Al Bahar Trading and Contracting Company is a Kuwait-based enterprise
+              J Al Bahar Trading and Contracting Company is a Kuwait-based enterprise
               delivering integrated solutions across trading, contracting, HVAC,
               facility development, consultancy, and industrial services.
             </p>
@@ -483,7 +483,7 @@ const [formSuccess, setFormSuccess] = useState(false);
     </p>
 
     <h3 className="text-lg md:text-xl md:text-2xl md:text-5xl font-bold leading-tight max-w-5xl">
-      “Our mission is to position Jawhart Al Bahar as a catalyst for infrastructure excellence, industrial modernization, and strategic regional growth.”
+      “Our mission is to position J Al Bahar as a catalyst for infrastructure excellence, industrial modernization, and strategic regional growth.”
     </h3>
 
     <p className="text-slate-300 text-lg mt-8 max-w-4xl leading-relaxed">
@@ -492,7 +492,7 @@ const [formSuccess, setFormSuccess] = useState(false);
 
     <div className="mt-10">
       <p className="text-white font-semibold text-lg">
-       - Jawhart Al Bahar Trading & Contracting Co
+       - J Al Bahar Trading & Contracting Co
       </p>
     </div>
 
@@ -565,7 +565,7 @@ onSubmit={() => setIsSubmitting(true)}
 </button>
 
   <a
-  href="https://wa.me/+919334114948?text=Hello%20I%20am%20interested%20in%20Jawhart%20Al%20Bahar%20services"
+  href="https://wa.me/+919334114948?text=Hello%20I%20am%20interested%20in%20J%20Al%20Bahar%20services"
   target="_blank"
   rel="noopener noreferrer"
   className="w-full mt-3 bg-[#2ab318] text-white py-3 rounded-2xl font-semibold hover:bg-white hover:text-[#2ab318] transition cursor-pointer flex items-center justify-center gap-3"
@@ -586,7 +586,7 @@ onSubmit={() => setIsSubmitting(true)}
       <footer id="contact" className="border-t border-slate-800">
         <div className="max-w-7xl mx-auto px-6 py-10 grid lg:grid-cols-3 gap-8 text-slate-400">
           <div>
-            <h4 className="text-white font-bold mb-3">Jawhart Al Bahar Trading and Contracting Co</h4>
+            <h4 className="text-white font-bold mb-3">J Al Bahar Trading and Contracting Co</h4>
             <p>Corporate infrastructure, engineering, and industrial services based in Kuwait.</p>
           </div>
           <div>

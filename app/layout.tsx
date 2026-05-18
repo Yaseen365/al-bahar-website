@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jawhart Al Bahar Trading & Contracting Co | Kuwait",
+  title: "J Al Bahar Trading & Contracting Co | Kuwait",
   description:
-    "Jawhart Al Bahar Trading & Contracting Co is a Kuwait-based enterprise delivering contracting, infrastructure, HVAC, facility development, industrial services, and strategic business growth.",
+    "J Al Bahar Trading & Contracting Co is a Kuwait-based enterprise delivering contracting, infrastructure, HVAC, facility development, industrial services, and strategic business growth.",
   
   icons: {
   icon: "/favicon.ico",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 },
 
     keywords: [
-    "Jawhart Al Bahar",
+    "J Al Bahar",
     "J Al Bahar",
     "Waste management Kuwait",
     "Industrial waste solutions Kuwait",
@@ -36,19 +36,19 @@ export const metadata: Metadata = {
     "Facility development Kuwait",
     "Industrial services Kuwait",
   ],
-  authors: [{ name: "Jawhart Al Bahar Trading & Contracting Co" }],
-  creator: "Jawhart Al Bahar Trading & Contracting Co",
-  publisher: "Jawhart Al Bahar Trading & Contracting Co",
+  authors: [{ name: "J Al Bahar Trading & Contracting Co" }],
+  creator: "J Al Bahar Trading & Contracting Co",
+  publisher: "J Al Bahar Trading & Contracting Co",
   metadataBase: new URL("https://jalbahar.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Jawhart Al Bahar Trading & Contracting Co | Kuwait",
+    title: "J Al Bahar Trading & Contracting Co | Kuwait",
     description:
       "Kuwait-based enterprise delivering contracting, infrastructure, HVAC, facility development, and industrial excellence.",
     url: "https://jalbahar.com",
-    siteName: "Jawhart Al Bahar Trading & Contracting Co",
+    siteName: "J Al Bahar Trading & Contracting Co",
     locale: "en_US",
     type: "website",
     images: [
@@ -56,13 +56,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Jawhart Al Bahar Trading & Contracting Co",
+        alt: "J Al Bahar Trading & Contracting Co",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jawhart Al Bahar Trading & Contracting Co | Kuwait",
+    title: "J Al Bahar Trading & Contracting Co | Kuwait",
     description: "Kuwait-based enterprise delivering contracting, infrastructure, HVAC, facility development, and industrial excellence.",
     images: ["/og-image.png"],
   },
