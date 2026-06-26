@@ -141,7 +141,7 @@ const [formSuccess, setFormSuccess] = useState(false);
   className="absolute inset-0 bg-cover bg-center"
   style={{ backgroundImage: "url('/hero-bg.jpg')" }}
 />
-<div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/85 to-slate-800/90" />
+<div className="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-900/30 to-slate-800/20" />
 
   {/* Premium Floating Ambient Orbs */}
   <div className="absolute top-20 left-10 w-72 h-72 bg-amber-500/8 rounded-full blur-3xl animate-[float_14s_ease-in-out_infinite]" />
