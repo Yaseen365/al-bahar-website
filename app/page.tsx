@@ -372,7 +372,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
                 <div className={`absolute inset-0 bg-gradient-to-b transition-all duration-500 ${isActive ? "from-black/40 via-black/65 to-slate-950/95" : "from-black/5 via-black/20 to-slate-950/70"}`} />
                 <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
                   <CardIcon type={card.icon} className="w-14 h-14 text-amber-400 mb-2 flex-shrink-0 transition-transform duration-500 ease-out group-hover:scale-125" />
-                  <h4 className="text-white font-bold uppercase tracking-wide text-base">{card.title}</h4>
+                  <h4 className="text-white font-bold uppercase tracking-wide text-xl">{card.title}</h4>
                   <ul
                     className="overflow-hidden transition-all duration-400 ease-out w-full mt-2"
                     style={{ maxHeight: isActive ? "220px" : "0px", opacity: isActive ? 1 : 0 }}
