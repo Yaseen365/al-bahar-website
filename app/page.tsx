@@ -228,14 +228,15 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
       `}</style>
       
       {/* Header */}
+      <div className="sticky top-0 z-50">
       <header
-  className={`sticky top-0 z-50 backdrop-blur bg-slate-800/45 transition-all duration-700 ${
+  className={`backdrop-blur bg-slate-800/45 transition-all duration-700 ${
     scrolled ? "md:h-9 py-0" : "py-0"
   }`}
 >
   <div
     className={`w-full px-3 md:px-6 flex justify-between items-center transition-all duration-700 ${
-      scrolled ? "md:h-10 py-0 py-3" : "py-3"
+      scrolled ? "py-3 md:h-10 md:py-0" : "py-3"
     }`}
 >
 
@@ -293,7 +294,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
       </header>
 
       {/* Mobile Navigation Bar */}
-<div className="lg:hidden sticky top-[59px] z-40 backdrop-blur bg-slate-800/45">
+<div className="lg:hidden backdrop-blur bg-slate-800/45">
   <div className="flex justify-between items-center px-4 text-[11px] text-slate-300 py-2 font-medium">
     <a href="#about" className="hover:text-amber-400 transition">About</a>
     <a href="#services" className="hover:text-amber-400 transition">Services</a>
@@ -301,6 +302,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
     <a href="#investors" className="hover:text-amber-400 transition">Investors</a>
     <a href="#contact" className="hover:text-amber-400 transition">Contact</a>
   </div>
+</div>
 </div>
 
     {/* Business Divisions */}
