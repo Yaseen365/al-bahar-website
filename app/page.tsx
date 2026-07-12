@@ -280,7 +280,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
 </a>
 
           <nav
-  className={`hidden lg:flex text-base text-slate-300 items-center transition-all duration-700 ${
+  className={`hidden lg:flex text-lg text-slate-300 items-center transition-all duration-700 ${
     scrolled
   ? "gap-25 mx-auto"
       : "gap-10"
@@ -308,7 +308,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
 
       {/* Mobile Navigation Bar */}
 <div className="lg:hidden backdrop-blur bg-slate-800/45">
-  <div className="flex justify-between items-center px-4 text-[11px] text-slate-300 py-2 font-medium">
+  <div className="flex justify-between items-center px-4 text-sm text-slate-300 py-2 font-medium">
     <a href="#about" className="hover:text-amber-400 transition">About</a>
     <a href="#services" className="hover:text-amber-400 transition">Services</a>
     <a href="#projects" className="hover:text-amber-400 transition">Projects</a>
