@@ -3,10 +3,97 @@ export const dynamic = "force-dynamic";
 
 import { useEffect, useState } from "react"
 
+const heroCards = [
+  {
+    title: "Trading",
+    image: "/hero-cards/trading.jpg",
+    icon: "globe",
+    items: ["Oil & Gas", "Environmental & Safety", "Waste Management", "Renewable Energy", "Instrumentation and Control", "Telecom and Security"],
+  },
+  {
+    title: "Operation & Maintenance",
+    image: "/hero-cards/operation-maintenance.jpg",
+    icon: "gear",
+    items: ["Waste Management", "Solar Plant", "Process Plant"],
+  },
+  {
+    title: "Project Investment",
+    image: "/hero-cards/project-investment.jpg",
+    icon: "chart",
+    items: ["Waste Management", "Solar", "Oil & Gas"],
+  },
+  {
+    title: "Contracting",
+    image: "/hero-cards/contracting.jpg",
+    icon: "crane",
+    items: ["Mechanical", "Civil", "Electrical", "Instrumentation & Control Systems", "Telecom & Security Systems", "Solar Energy System"],
+  },
+  {
+    title: "Consultancy Services",
+    image: "/hero-cards/consultancy.jpg",
+    icon: "consult",
+    items: ["Principal Consultants", "Project Management & Engineering", "Engineering and Design", "Business Innovations", "Professional Certifications", "Project Technical Studies"],
+  },
+];
+
+function CardIcon({ type, className }: { type: string; className: string }) {
+  const common = { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round" };
+
+  if (type === "globe") return (
+    <svg className={`${className} globe-icon`} {...common}>
+      <circle cx="12" cy="12" r="9" />
+      <ellipse cx="12" cy="12" rx="4" ry="9" />
+      <path d="M3 12h18" />
+      <path d="M4.5 7h15M4.5 17h15" />
+    </svg>
+  );
+
+  if (type === "gear") return (
+    <svg className={`${className} gear-icon`} {...common}>
+      <circle cx="12" cy="12" r="3.2" />
+      <path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1M18.7 18.7l-2.1-2.1M7.4 7.4L5.3 5.3" />
+    </svg>
+  );
+
+  if (type === "chart") return (
+    <svg className={className} {...common}>
+      <rect className="bar1" x="3.5" y="16" width="3" height="5" rx="0.5" fill="currentColor" stroke="none" />
+      <rect className="bar2" x="8.5" y="12" width="3" height="9" rx="0.5" fill="currentColor" stroke="none" />
+      <rect className="bar3" x="13.5" y="8" width="3" height="13" rx="0.5" fill="currentColor" stroke="none" />
+      <rect className="bar4" x="18.5" y="4" width="3" height="17" rx="0.5" fill="currentColor" stroke="none" />
+    </svg>
+  );
+
+  if (type === "crane") return (
+    <svg className={className} {...common}>
+      <path d="M5 21V6" />
+      <path d="M5 6l14 3" />
+      <path d="M5 9l-2.5 1" />
+      <path d="M2 21h10" />
+      <g className="crane-hook">
+        <path d="M17 9v4" />
+        <circle cx="17" cy="14.5" r="1.2" fill="currentColor" stroke="none" />
+      </g>
+    </svg>
+  );
+
+  if (type === "consult") return (
+    <svg className={className} {...common}>
+      <circle className="consult-dot-1" cx="9" cy="9" r="2.3" />
+      <circle className="consult-dot-2" cx="16" cy="9" r="2.3" />
+      <path d="M4.5 19c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5" />
+      <path d="M11.5 19c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5" />
+    </svg>
+  );
+
+  return null;
+}
+
 export default function JAlBaharSample() {
   const [scrolled, setScrolled] = useState(false);
 const [isSubmitting, setIsSubmitting] = useState(false);
 const [formSuccess, setFormSuccess] = useState(false);
+const [activeCard, setActiveCard] = useState<number | null>(null);
 
   useEffect(() => {
   if (typeof window !== "undefined") {
@@ -55,6 +142,28 @@ const [formSuccess, setFormSuccess] = useState(false);
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(-20px); }
         }
+        @keyframes barGrow {
+          0% { transform: scaleY(0.35); }
+          100% { transform: scaleY(1); }
+        }
+        @keyframes hookSway {
+          0%, 100% { transform: rotate(0deg); }
+          50% { transform: rotate(10deg); }
+        }
+        @keyframes pulseDot {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.3); }
+        }
+        .group:hover .bar1 { animation: barGrow 0.5s ease-out forwards; transform-origin: bottom; }
+        .group:hover .bar2 { animation: barGrow 0.5s 0.08s ease-out forwards; transform-origin: bottom; }
+        .group:hover .bar3 { animation: barGrow 0.5s 0.16s ease-out forwards; transform-origin: bottom; }
+        .group:hover .bar4 { animation: barGrow 0.5s 0.24s ease-out forwards; transform-origin: bottom; }
+        .group:hover .crane-hook { animation: hookSway 1.2s ease-in-out infinite; transform-origin: top center; }
+        .group:hover .consult-dot-1 { animation: pulseDot 2.2s ease-in-out infinite; transform-origin: center; }
+        .group:hover .consult-dot-2 { animation: pulseDot 2.2s 0.5s ease-in-out infinite; transform-origin: center; }
+        .group:hover .globe-icon { animation: spin 16s linear infinite; transform-origin: center; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .group:hover .gear-icon { animation: spin 16s linear infinite; transform-origin: center; }
       `}</style>
       
       {/* Header */}
@@ -133,6 +242,81 @@ const [formSuccess, setFormSuccess] = useState(false);
   </div>
 </div>
 
+    {/* Business Divisions */}
+    <section className="bg-slate-950 py-0">
+      <div className="w-full px-0">
+        <div
+          className="hidden lg:flex gap-0 h-[clamp(360px,34vw,520px)] rounded-none overflow-hidden"
+          onMouseLeave={() => setActiveCard(null)}
+        >
+          {heroCards.map((card, i) => {
+            const isActive = activeCard === i;
+            return (
+              <div
+                key={card.title}
+                onMouseEnter={() => setActiveCard(i)}
+                className="group relative rounded-none overflow-hidden cursor-pointer bg-cover bg-center transition-[flex] duration-500 ease-out"
+                style={{ flex: isActive ? "2.2 1 0%" : "1 1 0%", backgroundImage: `url('${card.image}')` }}
+              >
+                <div className={`absolute inset-0 bg-gradient-to-b transition-all duration-500 ${isActive ? "from-black/30 via-black/55 to-slate-950/90" : "from-black/5 via-black/20 to-slate-950/70"}`} />
+                <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
+                  <CardIcon type={card.icon} className="w-[clamp(2.25rem,3vw,3.5rem)] h-[clamp(2.25rem,3vw,3.5rem)] text-amber-400 mb-4 flex-shrink-0 transition-transform duration-500 ease-out group-hover:scale-125" />
+                  <div className="w-12 h-px bg-amber-400/60 mb-4 flex-shrink-0" />
+                  <h4 className={`text-white font-bold uppercase tracking-wide transition-all duration-500 ${isActive ? "text-[clamp(1.1rem,1.5vw,1.6rem)]" : "text-[clamp(0.9rem,1.1vw,1.15rem)]"}`}>
+                    {card.title}
+                  </h4>
+
+                  <ul
+                    className="overflow-hidden transition-all duration-400 ease-out w-full mt-3"
+                    style={{ maxHeight: isActive ? "220px" : "0px", opacity: isActive ? 1 : 0 }}
+                  >
+                    {card.items.map((item) => (
+                        <li key={item} className="text-amber-400 text-[clamp(0.9rem,1vw,1.1rem)] py-1.5">
+                          {item}
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Mobile: tap-to-expand */}
+        <div className="lg:hidden flex flex-col gap-4">
+          {heroCards.map((card, i) => {
+            const isActive = activeCard === i;
+            return (
+              <button
+                key={card.title}
+                onClick={() => setActiveCard(isActive ? null : i)}
+                className="group relative rounded-xl overflow-hidden text-left bg-cover bg-center h-[clamp(9rem,30vw,13rem)]"
+                style={{ backgroundImage: `url('${card.image}')` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/20 to-slate-950/70" />
+                <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
+                  <CardIcon type={card.icon} className="w-11 h-11 text-amber-400 mb-2 flex-shrink-0 transition-transform duration-500 ease-out group-hover:scale-125" />
+                  <h4 className="text-white font-bold uppercase tracking-wide text-base">{card.title}</h4>
+                  <ul
+                    className="overflow-hidden transition-all duration-400 ease-out w-full mt-2"
+                    style={{ maxHeight: isActive ? "220px" : "0px", opacity: isActive ? 1 : 0 }}
+                  >
+                    {card.items.map((item) => (
+                      <li key={item} className="text-amber-400 text-l py-1 mt-1">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+      {/* Hero */}
+
 
       {/* Hero */}
 <section id="home" className="relative overflow-hidden pt-0 md:pt-0">
@@ -187,6 +371,7 @@ const [formSuccess, setFormSuccess] = useState(false);
         </a>
       </div>
     </div>
+    
 
     {/* Stats Cards */}
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-8 md:mt-0">
