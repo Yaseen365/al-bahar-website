@@ -290,7 +290,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
               <button
                 key={card.title}
                 onClick={() => setActiveCard(isActive ? null : i)}
-                className="group relative rounded-xl overflow-hidden text-left bg-cover bg-center h-[clamp(9rem,30vw,13rem)]"
+                className={`group relative rounded-xl overflow-hidden text-left bg-cover bg-center transition-[min-height] duration-500 ease-out ${isActive ? "min-h-[26rem]" : "h-[clamp(9rem,30vw,13rem)]"}`}
                 style={{ backgroundImage: `url('${card.image}')` }}
               >
                 <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/20 to-slate-950/70" />
