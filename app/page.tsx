@@ -197,16 +197,29 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
           0%, 100% { transform: scale(1); }
           50% { transform: scale(1.3); }
         }
-        .group:hover .bar1 { animation: barGrow 0.5s ease-out forwards; transform-origin: bottom; }
-        .group:hover .bar2 { animation: barGrow 0.5s 0.08s ease-out forwards; transform-origin: bottom; }
-        .group:hover .bar3 { animation: barGrow 0.5s 0.16s ease-out forwards; transform-origin: bottom; }
-        .group:hover .bar4 { animation: barGrow 0.5s 0.24s ease-out forwards; transform-origin: bottom; }
-        .group:hover .crane-hook { animation: hookSway 1.2s ease-in-out infinite; transform-origin: top center; }
-        .group:hover .consult-dot-1 { animation: pulseDot 2.2s ease-in-out infinite; transform-origin: center; }
-        .group:hover .consult-dot-2 { animation: pulseDot 2.2s 0.5s ease-in-out infinite; transform-origin: center; }
-        .group:hover .globe-icon { animation: spin 16s linear infinite; transform-origin: center; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .group:hover .gear-icon { animation: spin 16s linear infinite; transform-origin: center; }
+
+        @media (hover: hover) and (pointer: fine) {
+          .group:hover .bar1 { animation: barGrow 0.5s ease-out forwards; transform-origin: bottom; }
+          .group:hover .bar2 { animation: barGrow 0.5s 0.08s ease-out forwards; transform-origin: bottom; }
+          .group:hover .bar3 { animation: barGrow 0.5s 0.16s ease-out forwards; transform-origin: bottom; }
+          .group:hover .bar4 { animation: barGrow 0.5s 0.24s ease-out forwards; transform-origin: bottom; }
+          .group:hover .crane-hook { animation: hookSway 1.2s ease-in-out infinite; transform-origin: top center; }
+          .group:hover .consult-dot-1 { animation: pulseDot 2.2s ease-in-out infinite; transform-origin: center; }
+          .group:hover .consult-dot-2 { animation: pulseDot 2.2s 0.5s ease-in-out infinite; transform-origin: center; }
+          .group:hover .globe-icon { animation: spin 16s linear infinite; transform-origin: center; }
+          .group:hover .gear-icon { animation: spin 16s linear infinite; transform-origin: center; }
+        }
+
+        .icon-active .bar1 { animation: barGrow 0.5s ease-out forwards; transform-origin: bottom; }
+        .icon-active .bar2 { animation: barGrow 0.5s 0.08s ease-out forwards; transform-origin: bottom; }
+        .icon-active .bar3 { animation: barGrow 0.5s 0.16s ease-out forwards; transform-origin: bottom; }
+        .icon-active .bar4 { animation: barGrow 0.5s 0.24s ease-out forwards; transform-origin: bottom; }
+        .icon-active .crane-hook { animation: hookSway 1.2s ease-in-out infinite; transform-origin: top center; }
+        .icon-active .consult-dot-1 { animation: pulseDot 2.2s ease-in-out infinite; transform-origin: center; }
+        .icon-active .consult-dot-2 { animation: pulseDot 2.2s 0.5s ease-in-out infinite; transform-origin: center; }
+        .icon-active .globe-icon { animation: spin 16s linear infinite; transform-origin: center; }
+        .icon-active .gear-icon { animation: spin 16s linear infinite; transform-origin: center; }
 
         .reveal {
           opacity: 0;
@@ -353,10 +366,10 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
               <button
                 key={card.title}
                 onClick={() => setActiveCard(isActive ? null : i)}
-                className={`group relative rounded-xl overflow-hidden text-left bg-cover bg-center transition-[min-height] duration-500 ease-out ${isActive ? "min-h-[26rem]" : "min-h-[clamp(9rem,30vw,13rem)]"}`}
+                className={`group relative rounded-xl overflow-hidden text-left bg-cover bg-center transition-[min-height] duration-500 ease-out ${isActive ? "min-h-[26rem] icon-active" : "min-h-[clamp(9rem,30vw,13rem)]"}`}
                 style={{ backgroundImage: `url('${card.image}')` }}
               >
-                <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/20 to-slate-950/70" />
+                <div className={`absolute inset-0 bg-gradient-to-b transition-all duration-500 ${isActive ? "from-black/40 via-black/65 to-slate-950/95" : "from-black/5 via-black/20 to-slate-950/70"}`} />
                 <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
                   <CardIcon type={card.icon} className="w-14 h-14 text-amber-400 mb-2 flex-shrink-0 transition-transform duration-500 ease-out group-hover:scale-125" />
                   <h4 className="text-white font-bold uppercase tracking-wide text-base">{card.title}</h4>
