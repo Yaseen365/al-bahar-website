@@ -65,14 +65,42 @@ function CardIcon({ type, className }: { type: string; className: string }) {
   );
 
   if (type === "crane") return (
-    <svg className={className} {...common}>
-      <path d="M5 21V6" />
-      <path d="M5 6l14 3" />
-      <path d="M5 9l-2.5 1" />
-      <path d="M2 21h10" />
+    <svg className={className} {...common} strokeWidth={1.1}>
+      {/* Lattice mast */}
+      <path d="M6.4 22V3.2M7.6 22V3.2" />
+      <path d="M6.4 5.5L7.6 3.8M6.4 3.8L7.6 5.5" />
+      <path d="M6.4 8.5L7.6 6.8M6.4 6.8L7.6 8.5" />
+      <path d="M6.4 11.5L7.6 9.8M6.4 9.8L7.6 11.5" />
+      <path d="M6.4 14.5L7.6 12.8M6.4 12.8L7.6 14.5" />
+      <path d="M6.4 17.5L7.6 15.8M6.4 15.8L7.6 17.5" />
+      <path d="M6.4 20.5L7.6 18.8M6.4 18.8L7.6 20.5" />
+      <path d="M5 22h4.5" />
+      <path d="M4.5 20.5h5.5" strokeWidth={0.8} />
+
+      {/* Apex tower above the jib */}
+      <path d="M7 3.2V1.4" />
+
+      {/* Cab below jib */}
+      <rect x="6.1" y="3.2" width="1.8" height="1.6" rx="0.2" fill="currentColor" stroke="none" />
+
+      {/* Jib (long arm) with lattice */}
+      <path d="M7 3.2H20.5" strokeWidth={0.9} />
+      <path d="M8.5 3.2l1-1.2M10.5 3.2l1-1.2M12.5 3.2l1-1.2M14.5 3.2l1-1.2M16.5 3.2l1-1.2M18.5 3.2l1-1.2" strokeWidth={0.7} />
+
+      {/* Counter-jib with counterweight */}
+      <path d="M7 3.2L3 4.6" strokeWidth={0.9} />
+      <path d="M1.6 4.2h2.2v1.6H1.6z" fill="currentColor" stroke="none" />
+
+      {/* Tension cables from apex to both arm ends */}
+      <path d="M7 1.4L19.5 3.2" strokeWidth={0.7} />
+      <path d="M7 1.4L2.2 4.5" strokeWidth={0.7} />
+
+      {/* Trolley on the jib */}
+      <rect x="14.7" y="2.8" width="1.4" height="0.9" fill="currentColor" stroke="none" />
+
       <g className="crane-hook">
-        <path d="M17 9v4" />
-        <circle cx="17" cy="14.5" r="1.2" fill="currentColor" stroke="none" />
+        <path d="M15.4 3.7V9.5" strokeWidth={0.8} />
+        <path d="M14.2 9.5a1.2 1.2 0 1 0 2.4 0" strokeWidth={0.9} />
       </g>
     </svg>
   );
@@ -129,6 +157,21 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled]);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans">
 
@@ -164,6 +207,24 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
         .group:hover .globe-icon { animation: spin 16s linear infinite; transform-origin: center; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .group:hover .gear-icon { animation: spin 16s linear infinite; transform-origin: center; }
+
+        .reveal {
+          opacity: 0;
+          transform: translateY(28px);
+          transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        @media (prefers-reduced-motion: reduce) {
+          .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+        }
       `}</style>
       
       {/* Header */}
@@ -260,7 +321,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
               >
                 <div className={`absolute inset-0 bg-gradient-to-b transition-all duration-500 ${isActive ? "from-black/30 via-black/55 to-slate-950/90" : "from-black/5 via-black/20 to-slate-950/70"}`} />
                 <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
-                  <CardIcon type={card.icon} className="w-[clamp(2.25rem,3vw,3.5rem)] h-[clamp(2.25rem,3vw,3.5rem)] text-amber-400 mb-4 flex-shrink-0 transition-transform duration-500 ease-out group-hover:scale-125" />
+                  <CardIcon type={card.icon} className="w-[clamp(2.75rem,3.8vw,4.25rem)] h-[clamp(2.75rem,3.8vw,4.25rem)] text-amber-400 mb-4 flex-shrink-0 transition-transform duration-500 ease-out group-hover:scale-125" />
                   <div className="w-12 h-px bg-amber-400/60 mb-4 flex-shrink-0" />
                   <h4 className={`text-white font-bold uppercase tracking-wide transition-all duration-500 ${isActive ? "text-[clamp(1.1rem,1.5vw,1.6rem)]" : "text-[clamp(0.9rem,1.1vw,1.15rem)]"}`}>
                     {card.title}
@@ -290,12 +351,12 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
               <button
                 key={card.title}
                 onClick={() => setActiveCard(isActive ? null : i)}
-                className={`group relative rounded-xl overflow-hidden text-left bg-cover bg-center transition-[min-height] duration-500 ease-out ${isActive ? "min-h-[26rem]" : "h-[clamp(9rem,30vw,13rem)]"}`}
+                className={`group relative rounded-xl overflow-hidden text-left bg-cover bg-center transition-[min-height] duration-500 ease-out ${isActive ? "min-h-[26rem]" : "min-h-[clamp(9rem,30vw,13rem)]"}`}
                 style={{ backgroundImage: `url('${card.image}')` }}
               >
                 <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/20 to-slate-950/70" />
                 <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
-                  <CardIcon type={card.icon} className="w-11 h-11 text-amber-400 mb-2 flex-shrink-0 transition-transform duration-500 ease-out group-hover:scale-125" />
+                  <CardIcon type={card.icon} className="w-14 h-14 text-amber-400 mb-2 flex-shrink-0 transition-transform duration-500 ease-out group-hover:scale-125" />
                   <h4 className="text-white font-bold uppercase tracking-wide text-base">{card.title}</h4>
                   <ul
                     className="overflow-hidden transition-all duration-400 ease-out w-full mt-2"
@@ -396,7 +457,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
 
       {/* Why Global Partners Choose Us */}
 <section className="max-w-7xl mx-auto px-6 py-16">
-  <div className="text-center mb-12">
+  <div className="text-center mb-12 reveal">
     <p className="text-amber-400 uppercase tracking-widest text-sm">
       Why Global Partners Choose Us
     </p>
@@ -426,10 +487,10 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
         "Kuwait & GCC Opportunity Positioning",
         "Aligned with infrastructure modernization, industrial development, and emerging Gulf market demand."
       ],
-    ].map(([title, desc]) => (
+    ].map(([title, desc], i) => (
       <div
         key={title}
-        className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500"
+        className={`bg-slate-900/70 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-${i + 1}`}
       >
         <h4 className="text-lg md:text-xl md:text-2xl font-semibold mb-4 text-white">
           {title}
@@ -446,7 +507,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
 <section className="max-w-7xl mx-auto px-6 py-20">
   <div className="grid lg:grid-cols-2 gap-12 items-center">
     
-    <div>
+    <div className="reveal">
       <p className="text-amber-400 uppercase tracking-widest text-sm">
         Our Competitive Edge
       </p>
@@ -469,10 +530,10 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
         "Kuwait & GCC Strategic Alignment",
         "Operational + Investor Readiness",
         "Sustainability-Driven Vision",
-      ].map((point) => (
+      ].map((point, i) => (
         <div
           key={point}
-          className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 hover:border-amber-400 hover:translate-x-2 transition-all duration-500"
+          className={`bg-slate-900/70 border border-slate-800 rounded-2xl p-5 hover:border-amber-400 hover:translate-x-2 transition-all duration-500 reveal reveal-delay-${i + 1}`}
         >
           <p className="text-slate-200 font-medium">
             {point}
@@ -487,7 +548,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
       {/* About */}
       <section id="about" className="max-w-7xl mx-auto px-6 py-2 bg-slate-900/30 rounded-3xl">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
+          <div className="reveal">
             <p className="text-amber-400 uppercase tracking-widest text-sm">About Us</p>
             <h3 className="text-3xl md:text-4xl font-bold mt-3 mb-6">
               Delivering Kuwait’s Future Through Excellence
@@ -504,7 +565,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
             </p>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-2">
             <h4 className="text-lg md:text-xl md:text-2xl font-semibold mb-4">Our Vision</h4>
             <p className="text-slate-300 leading-relaxed">
               To become Kuwait’s leading contracting, consultancy, and facility services
@@ -516,7 +577,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
 
       {/* Our Execution Model */}
 <section className="max-w-7xl mx-auto px-6 py-20">
-  <div className="text-center mb-14">
+  <div className="text-center mb-14 reveal">
     <p className="text-amber-400 uppercase tracking-widest text-sm">
       Our Execution Model
     </p>
@@ -534,10 +595,10 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
       ["02", "Design", "Engineering, planning, and technical structuring for execution readiness."],
       ["03", "Execute", "Integrated contracting, deployment, and operational delivery."],
       ["04", "Sustain", "Maintenance, optimization, and scalable long-term support."],
-    ].map(([num, title, desc]) => (
+    ].map(([num, title, desc], i) => (
       <div
         key={title}
-        className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500"
+        className={`bg-slate-900/70 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-${i + 1}`}
       >
         <p className="text-5xl font-extrabold text-amber-400 mb-4">
           {num}
@@ -555,7 +616,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
 
       {/* Services */}
       <section id="services" className="max-w-7xl mx-auto px-6 py-20">
-        <div className="mb-12">
+        <div className="mb-12 reveal">
           <p className="text-amber-400 uppercase tracking-widest text-sm">Core Capabilities</p>
           <h3 className="text-3xl md:text-4xl font-bold mt-3">Integrated Business Divisions</h3>
         </div>
@@ -567,8 +628,8 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
             ["Maintenance Services", "AMC contracts, building maintenance, electro-mechanical support, and industrial upkeep."],
             ["Project Consultancy", "Planning, engineering, financing, design, and project management services."],
             ["Waste Management & O&M", "Operational support and sustainable industrial waste management projects."],
-          ].map(([title, desc]) => (
-            <div key={title} className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500">
+          ].map(([title, desc], i) => (
+            <div key={title} className={`bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-${(i % 3) + 1}`}>
               <h4 className="text-lg md:text-xl font-semibold mb-3 hover:text-amber-400 transition">{title}</h4>
 <p className="text-slate-400 hover:text-slate-200 transition">{desc}</p>
             </div>
@@ -578,7 +639,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
       
       {/* Industries We Empower */}
 <section className="max-w-7xl mx-auto px-6 py-20">
-  <div className="text-center mb-12">
+  <div className="text-center mb-12 reveal">
     <p className="text-amber-400 uppercase tracking-widest text-sm">
       Industries We Empower
     </p>
@@ -596,10 +657,10 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
       "Industrial Operations",
       "Commercial Facilities",
       "Sustainability & Waste Management",
-    ].map((industry) => (
+    ].map((industry, i) => (
       <div
         key={industry}
-        className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 text-center hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500"
+        className={`bg-slate-900/70 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 text-center hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-${i + 1}`}
       >
         <h4 className="text-lg md:text-xl font-semibold text-white">
           {industry}
@@ -611,7 +672,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
 
       {/* Projects */}
 <section id="projects" className="max-w-7xl mx-auto px-6 py-20">
-  <div className="mb-12">
+  <div className="mb-12 reveal">
     <p className="text-amber-400 uppercase tracking-widest text-sm">
       Major Projects
     </p>
@@ -621,7 +682,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
   </div>
 
   <div className="grid lg:grid-cols-2 gap-8">
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500">
+    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-1">
       <h4 className="text-lg md:text-xl md:text-2xl font-semibold mb-4 hover:text-amber-400 transition">
         GCC Infrastructure Projects
       </h4>
@@ -630,7 +691,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
       </p>
     </div>
 
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500">
+    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-2">
       <h4 className="text-lg md:text-xl md:text-2xl font-semibold mb-4 hover:text-amber-400 transition">
         Waste Management & O&M
       </h4>
@@ -639,7 +700,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
       </p>
     </div>
 
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500">
+    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-3">
       <h4 className="text-lg md:text-xl md:text-2xl font-semibold mb-4 hover:text-amber-400 transition">
         HVAC & Facility Systems
       </h4>
@@ -648,7 +709,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
       </p>
     </div>
 
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500">
+    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-4">
       <h4 className="text-lg md:text-xl md:text-2xl font-semibold mb-4 hover:text-amber-400 transition">
         Turnkey Contracting Solutions
       </h4>
@@ -661,7 +722,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
 
 {/* Leadership Vision */}
 <section className="max-w-7xl mx-auto px-6 py-24">
-  <div className="bg-gradient-to-r from-slate-900 to-slate-800 border border-slate-800 rounded-3xl p-10 md:p-16">
+  <div className="bg-gradient-to-r from-slate-900 to-slate-800 border border-slate-800 rounded-3xl p-10 md:p-16 reveal">
     
     <p className="text-amber-400 uppercase tracking-widest text-sm mb-4">
       Leadership Vision
@@ -687,7 +748,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
       {/* Investor CTA */}
       <section id="investors" className="bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950">
         <div className="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-10 items-center">
-          <div>
+          <div className="reveal">
             <p className="uppercase tracking-widest text-sm font-semibold">Investor Relations</p>
             <h3 className="text-3xl md:text-4xl font-extrabold mt-3 mb-4">Partner in Kuwait’s Next Industrial Growth Phase</h3>
             <p className="text-lg">
@@ -699,7 +760,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
   action="https://api.web3forms.com/submit"
 method="POST"
 onSubmit={() => setIsSubmitting(true)}
-  className="bg-white/30 rounded-2xl p-5 md:rounded-3xl md:p-8 backdrop-blur"
+  className="bg-white/30 rounded-2xl p-5 md:rounded-3xl md:p-8 backdrop-blur reveal reveal-delay-2"
 >
     
   <input type="hidden" name="access_key" value="a5617a31-7549-435a-a514-e20ba1fcfd81" />
@@ -770,11 +831,11 @@ onSubmit={() => setIsSubmitting(true)}
       {/* Footer */}
       <footer id="contact" className="border-t border-slate-800">
         <div className="max-w-7xl mx-auto px-6 py-10 grid lg:grid-cols-3 gap-8 text-slate-400">
-          <div>
+          <div className="reveal reveal-delay-1">
             <h4 className="text-white font-bold mb-3">J Al Bahar Trading and Contracting Co</h4>
             <p>Corporate infrastructure, engineering, and industrial services based in Kuwait.</p>
           </div>
-          <div>
+          <div className="reveal reveal-delay-2">
             <h4 className="text-white font-bold mb-3">Contact</h4>
             <p>
   Email:{" "}
@@ -796,9 +857,19 @@ onSubmit={() => setIsSubmitting(true)}
   </a>
 </p>
           </div>
-          <div>
+          <div className="reveal reveal-delay-3">
             <h4 className="text-white font-bold mb-3">Opportunity</h4>
             <p>Strategic partnerships • Global investors • Regional expansion</p>
+          </div>
+        </div>
+
+        <div className="border-t border-slate-800">
+          <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row justify-between items-center gap-3 text-slate-500 text-sm">
+            <p>© 2026 J Al Bahar Trading &amp; Contracting Co. All rights reserved.</p>
+            <div className="flex items-center gap-6">
+              <a href="/admin" className="hover:text-slate-300 transition">Admin</a>
+              <p>Kuwait · GCC · MENA</p>
+            </div>
           </div>
         </div>
       </footer>
