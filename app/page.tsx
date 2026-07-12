@@ -338,7 +338,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
                 <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
                   <CardIcon type={card.icon} className="w-[clamp(2.75rem,3.8vw,4.25rem)] h-[clamp(2.75rem,3.8vw,4.25rem)] text-amber-400 mb-4 flex-shrink-0 transition-transform duration-500 ease-out group-hover:scale-125" />
                   <div className="w-12 h-px bg-amber-400/60 mb-4 flex-shrink-0" />
-                  <h4 className={`text-white font-bold uppercase tracking-wide transition-all duration-500 ${isActive ? "text-[clamp(1.1rem,1.5vw,1.6rem)]" : "text-[clamp(0.9rem,1.1vw,1.15rem)]"}`}>
+                  <h4 className={`text-white font-bold uppercase tracking-wide transition-all duration-500 ${isActive ? "text-[clamp(1.4rem,1.9vw,2rem)]" : "text-[clamp(1.15rem,1.4vw,1.5rem)]"}`}>
                     {card.title}
                   </h4>
 
