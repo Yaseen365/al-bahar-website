@@ -37,7 +37,7 @@ const heroCards = [
 ];
 
 function CardIcon({ type, className }: { type: string; className: string }) {
-  const common = { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round" };
+  const common = { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
 
   if (type === "globe") return (
     <svg className={`${className} globe-icon`} {...common}>
