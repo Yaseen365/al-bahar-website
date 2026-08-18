@@ -3,6 +3,13 @@ export const dynamic = "force-dynamic";
 
 import { useEffect, useState } from "react"
 
+const bgImages = [
+  "/section-images/about-us.jpg",
+  "/section-images/project-gcc-infrastructure.jpg",
+  "/section-images/leadership-vision.jpg",
+  "/hero-bg.jpg",
+];
+
 const heroCards = [
   {
     title: "Trading",
@@ -118,7 +125,9 @@ function CardIcon({ type, className }: { type: string; className: string }) {
 }
 
 export default function JAlBaharSample() {
-  const [scrolled, setScrolled] = useState(false);
+const [scrolled, setScrolled] = useState(false);
+const [scrollY, setScrollY] = useState(0);
+const [docHeight, setDocHeight] = useState(1);
 const [isSubmitting, setIsSubmitting] = useState(false);
 const [formSuccess, setFormSuccess] = useState(false);
 const [activeCard, setActiveCard] = useState<number | null>(null);
@@ -140,22 +149,32 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
   }
 }, []);
 
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const currentScroll = window.scrollY;
-          if (currentScroll > 150 && !scrolled) setScrolled(true);
-          else if (currentScroll < 10 && scrolled) setScrolled(false);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrolled]);
+useEffect(() => {
+  let ticking = false;
+  const handleScroll = () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const currentScroll = window.scrollY;
+        if (currentScroll > 150 && !scrolled) setScrolled(true);
+        else if (currentScroll < 10 && scrolled) setScrolled(false);
+        setScrollY(currentScroll);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  };
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, [scrolled]);
+
+useEffect(() => {
+  const updateHeight = () => {
+    setDocHeight(document.documentElement.scrollHeight - window.innerHeight);
+  };
+  updateHeight();
+  window.addEventListener("resize", updateHeight);
+  return () => window.removeEventListener("resize", updateHeight);
+}, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -173,7 +192,39 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white font-sans">
+    <div className="min-h-screen text-white font-sans">
+
+      {/* Dynamic Scroll Background */}
+      <div className="fixed inset-0 -z-10 bg-slate-950 overflow-hidden pointer-events-none">
+        {bgImages.map((img, i) => {
+          const segment = 1 / bgImages.length;
+          const progress = docHeight > 0 ? scrollY / docHeight : 0;
+          const start = i * segment;
+          const local = Math.min(Math.max((progress - start) / segment, 0), 1);
+          const fade = 0.2;
+          let opacity;
+          if (local < fade) opacity = i === 0 ? 1 : local / fade;
+          else if (local > 1 - fade) opacity = i === bgImages.length - 1 ? 1 : (1 - local) / fade;
+          else opacity = 1;
+          const scale = 1 + local * 0.25;
+
+          return (
+            <div
+              key={img}
+              className="absolute inset-0 bg-cover bg-center transition-opacity duration-700 ease-out"
+              style={{
+                backgroundImage: `url('${img}')`,
+                opacity,
+                transform: `scale(${scale})`,
+                filter: "blur(6px)",
+              }}
+            />
+          );
+        })}
+
+        <div className="absolute inset-0 bg-slate-950/20" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_100%_at_50%_50%,transparent_55%,rgba(2,6,23,0.45)_100%)]" />
+      </div>
 
       {/* Keyframe styles */}
       <style>{`
@@ -221,23 +272,26 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
         .icon-active .globe-icon { animation: spin 16s linear infinite; transform-origin: center; }
         .icon-active .gear-icon { animation: spin 16s linear infinite; transform-origin: center; }
 
-        .reveal {
-          opacity: 0;
-          transform: translateY(28px);
-          transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .reveal.revealed {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
+.reveal {
+  opacity: 0;
+  translate: 0 28px;
+  transition: opacity 0.7s ease, translate 0.7s ease;
+}
+.reveal.revealed {
+  opacity: 1;
+  translate: 0 0;
+}
+.reveal.revealed:hover {
+  transition: transform 0.5s ease, translate 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, background-color 0.5s ease;
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
 
-        @media (prefers-reduced-motion: reduce) {
-          .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
-        }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none !important; opacity: 1 !important; translate: none !important; transform: none !important; }
+}
       `}</style>
       
       {/* Header */}
@@ -396,12 +450,8 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
 
       {/* Hero */}
 <section id="home" className="relative overflow-hidden pt-0 md:pt-0">
-  {/* Base Background Gradient */}
-  <div
-  className="absolute inset-0 bg-cover bg-center"
-  style={{ backgroundImage: "url('/hero-bg.jpg')" }}
-/>
-<div className="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-900/30 to-slate-800/20" />
+  {/* Gradient overlay for text contrast — dynamic background shows through */}
+  <div className="absolute inset-0 bg-gradient-to-b from-slate-950/20 via-slate-950/10 to-slate-950/50" />
 
   {/* Premium Floating Ambient Orbs */}
   <div className="absolute top-20 left-10 w-72 h-72 bg-amber-500/8 rounded-full blur-3xl animate-[float_14s_ease-in-out_infinite]" />
@@ -426,7 +476,7 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
         Kuwait Based Enterprise
       </p>
 
-      <h2 className="text-xl md:text-2xl sm:text-4xl md:text-7xl font-extrabold leading-tight mb-6">
+      <h2 className="text-xl md:text-2xl sm:text-4xl md:text-7xl font-extrabold leading-tight mb-6 text-white">
         Building Kuwait’s Future Through Trading, Contracting & Industrial Excellence
       </h2>
 
@@ -563,7 +613,14 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
       {/* About */}
       <section id="about" className="max-w-7xl mx-auto px-6 py-2 bg-slate-900/30 rounded-3xl">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="reveal">
+          <div className="reveal order-2 lg:order-1">
+            <img
+              src="/section-images/about-us.jpg"
+              alt="J Al Bahar team at work"
+              className="w-full h-64 lg:h-full object-cover rounded-2xl"
+            />
+          </div>
+          <div className="reveal reveal-delay-1 order-1 lg:order-2">
             <p className="text-amber-400 uppercase tracking-widest text-sm">About Us</p>
             <h3 className="text-3xl md:text-4xl font-bold mt-3 mb-6">
               Delivering Kuwait’s Future Through Excellence
@@ -580,13 +637,14 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
             </p>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-2">
-            <h4 className="text-lg md:text-xl md:text-2xl font-semibold mb-4">Our Vision</h4>
-            <p className="text-slate-300 leading-relaxed">
-              To become Kuwait’s leading contracting, consultancy, and facility services
-              provider through quality, innovation, and cost-effective execution.
-            </p>
           </div>
+
+        <div className="mt-10 bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-2">
+          <h4 className="text-lg md:text-xl md:text-2xl font-semibold mb-4">Our Vision</h4>
+          <p className="text-slate-300 leading-relaxed">
+            To become Kuwait’s leading contracting, consultancy, and facility services
+            provider through quality, innovation, and cost-effective execution.
+          </p>
         </div>
       </section>
 
@@ -697,48 +755,64 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
   </div>
 
   <div className="grid lg:grid-cols-2 gap-8">
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-1">
+    <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-1">
+      <img src="/section-images/project-gcc-infrastructure.jpg" alt="GCC Infrastructure Projects" className="w-full h-48 object-cover" />
+      <div className="p-5 md:p-8">
       <h4 className="text-lg md:text-xl md:text-2xl font-semibold mb-4 hover:text-amber-400 transition">
         GCC Infrastructure Projects
       </h4>
       <p className="text-slate-400 hover:text-slate-200 transition">
         Delivering regional contracting excellence through diversified infrastructure and industrial project execution.
       </p>
+      </div>
     </div>
 
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-2">
+    <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-2">
+      <img src="/section-images/project-waste-management.jpg" alt="Waste Management & O&M" className="w-full h-48 object-cover" />
+      <div className="p-5 md:p-8">
       <h4 className="text-lg md:text-xl md:text-2xl font-semibold mb-4 hover:text-amber-400 transition">
         Waste Management & O&M
       </h4>
       <p className="text-slate-400 hover:text-slate-200 transition">
         EPCC, operational management, and sustainable waste processing initiatives supporting Kuwait’s industrial future.
       </p>
+      </div>
     </div>
 
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-3">
+    <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-3">
+      <img src="/section-images/project-hvac-facility.jpg" alt="HVAC & Facility Systems" className="w-full h-48 object-cover" />
+      <div className="p-5 md:p-8">
       <h4 className="text-lg md:text-xl md:text-2xl font-semibold mb-4 hover:text-amber-400 transition">
         HVAC & Facility Systems
       </h4>
       <p className="text-slate-400 hover:text-slate-200 transition">
         Advanced air-conditioning, chiller systems, and integrated facility support for industrial and commercial sectors.
       </p>
+      </div>
     </div>
 
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:rounded-3xl md:p-8 hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-4">
+    <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-amber-400 hover:-translate-y-3 hover:shadow-[0_0_30px_rgba(251,191,36,0.15)] transition-all duration-500 reveal reveal-delay-4">
+      <img src="/section-images/project-turnkey-contracting.jpg" alt="Turnkey Contracting Solutions" className="w-full h-48 object-cover" />
+      <div className="p-5 md:p-8">
       <h4 className="text-lg md:text-xl md:text-2xl font-semibold mb-4 hover:text-amber-400 transition">
         Turnkey Contracting Solutions
       </h4>
       <p className="text-slate-400 hover:text-slate-200 transition">
         End-to-end planning, design, execution, and facility development solutions for modern business growth.
       </p>
+      </div>
     </div>
   </div>
 </section>
 
 {/* Leadership Vision */}
 <section className="max-w-7xl mx-auto px-6 py-24">
-  <div className="bg-gradient-to-r from-slate-900 to-slate-800 border border-slate-800 rounded-3xl p-10 md:p-16 reveal">
-    
+  <div
+    className="relative overflow-hidden border border-slate-800 rounded-3xl p-10 md:p-16 reveal bg-cover bg-center"
+    style={{ backgroundImage: "url('/section-images/leadership-vision.jpg')" }}
+  >
+    <div className="absolute inset-0 bg-gradient-to-r from-slate-950/55 via-slate-950/55 to-slate-700/40" />
+    <div className="relative">
     <p className="text-amber-400 uppercase tracking-widest text-sm mb-4">
       Leadership Vision
     </p>
@@ -752,11 +826,11 @@ const [activeCard, setActiveCard] = useState<number | null>(null);
     </p>
 
     <div className="mt-10">
-      <p className="text-white font-semibold text-lg">
+      <p className="text-amber-400 font-semibold text-lg">
        - J Al Bahar Trading & Contracting Co
       </p>
     </div>
-
+    </div>
   </div>
 </section>
 
@@ -844,7 +918,7 @@ onSubmit={() => setIsSubmitting(true)}
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="border-t border-slate-800">
+      <footer id="contact" className="relative border-t border-slate-800 bg-slate-950/95 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6 py-10 grid lg:grid-cols-3 gap-8 text-slate-400">
           <div className="reveal reveal-delay-1">
             <h4 className="text-white font-bold mb-3">J Al Bahar Trading and Contracting Co</h4>
